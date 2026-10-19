@@ -1,0 +1,81 @@
+```html
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-icon">📚</span>
+      <div>
+        <h2>EL SABER</h2>
+        <p>Sistema de Gestión</p>
+      </div>
+    </div>
+
+    <nav class="menu">
+      <a routerLink="/" routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }">
+        🏠 Inicio
+      </a>
+      <a routerLink="/libros">📚 Libros</a>
+      <a routerLink="/autores">👤 Autores</a>
+      <a routerLink="/editoriales">🏢 Editoriales</a>
+      <a routerLink="/estudiantes">🎓 Estudiantes</a>
+      <a routerLink="/categorias">📖 Categorías</a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <span>Biblioteca El Saber</span>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1>Panel de Control General</h1>
+      <div class="user-badge">Administrador</div>
+    </header>
+
+    <section class="welcome">
+      <h2>¡Bienvenido a El Saber! 👋</h2>
+      <p>
+        Este es el panel administrativo de la biblioteca.
+        Selecciona un mantenimiento para comenzar.
+      </p>
+    </section>
+
+    <section class="cards">
+      <article class="card">
+        <div class="card-icon blue">📚</div>
+        <h3>Mantenimiento 1: Libros</h3>
+        <p>Gestiona títulos, autores y años de publicación.</p>
+        <a routerLink="/libros">Administrar libros →</a>
+      </article>
+
+      <article class="card">
+        <div class="card-icon purple">👤</div>
+        <h3>Mantenimiento 2: Autores</h3>
+        <p>Gestiona autores, DNI y nacionalidades.</p>
+        <a routerLink="/autores">Administrar autores →</a>
+      </article>
+
+      <article class="card">
+        <div class="card-icon green">🏢</div>
+        <h3>Mantenimiento 3: Editoriales</h3>
+        <p>Gestiona editoriales, RUC y teléfonos.</p>
+        <a routerLink="/editoriales">Administrar editoriales →</a>
+      </article>
+
+      <article class="card">
+        <div class="card-icon orange">🎓</div>
+        <h3>Mantenimiento 4: Estudiantes</h3>
+        <p>Gestiona alumnos, carreras y teléfonos.</p>
+        <a routerLink="/estudiantes">Administrar estudiantes →</a>
+      </article>
+
+      <article class="card">
+        <div class="card-icon amber">📖</div>
+        <h3>Mantenimiento 5: Categorías</h3>
+        <p>Organiza géneros y secciones de la biblioteca.</p>
+        <a routerLink="/categorias">Administrar categorías →</a>
+      </article>
+    </section>
+  </main>
+</div>
+```

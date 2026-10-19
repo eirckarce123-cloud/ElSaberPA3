@@ -1,0 +1,79 @@
+
+<div class="pagina">
+  <header class="encabezado">
+    <div>
+      <h1>✍️ Gestión de Autores</h1>
+      <p>Biblioteca El Saber</p>
+    </div>
+    <a routerLink="/">Volver al inicio</a>
+  </header>
+
+  <h2>{{ editando ? 'Editar autor' : 'Registrar autor' }}</h2>
+
+  <form #formulario="ngForm" (ngSubmit)="guardarAutor()">
+    <label>DNI</label>
+    <input name="dni" [(ngModel)]="autor.dni"
+      required maxlength="20" [disabled]="editando"
+      placeholder="Documento del autor">
+
+    <label>Nombre completo</label>
+    <input name="nombre" [(ngModel)]="autor.nombre"
+      required placeholder="Nombre del autor">
+
+    <label>Nacionalidad</label>
+    <input name="nacionalidad" [(ngModel)]="autor.nacionalidad"
+      required placeholder="Nacionalidad">
+
+    <label>Año de nacimiento</label>
+    <input type="number" name="anio_nacimiento"
+      [(ngModel)]="autor.anio_nacimiento"
+      required min="1000" [max]="2100">
+
+    <button type="submit" [disabled]="formulario.invalid">
+      {{ editando ? 'Guardar cambios' : 'Registrar autor' }}
+    </button>
+
+    <button type="button" *ngIf="editando"
+      (click)="limpiarFormulario()">
+      Cancelar
+    </button>
+  </form>
+
+  <p *ngIf="mensaje">{{ mensaje }}</p>
+  <p *ngIf="error">{{ error }}</p>
+  <p *ngIf="cargando">Cargando autores...</p>
+
+  <div class="tabla-contenedor" *ngIf="!cargando">
+    <table>
+      <thead>
+        <tr>
+          <th>DNI</th>
+          <th>Nombre</th>
+          <th>Nacionalidad</th>
+          <th>Año de nacimiento</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let autor of autores">
+          <td>{{ autor.dni }}</td>
+          <td>{{ autor.nombre }}</td>
+          <td>{{ autor.nacionalidad }}</td>
+          <td>{{ autor.anio_nacimiento }}</td>
+          <td>
+            <button type="button" (click)="prepararEdicion(autor)">
+              Editar
+            </button>
+            <button type="button" (click)="eliminarAutor(autor.dni)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="autores.length === 0">
+          <td colspan="5">Todavía no hay autores registrados.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

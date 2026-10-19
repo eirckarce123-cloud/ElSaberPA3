@@ -1,0 +1,79 @@
+
+<div class="pagina">
+  <header class="encabezado">
+    <div>
+      <h1>🎓 Gestión de Estudiantes</h1>
+      <p>Biblioteca El Saber</p>
+    </div>
+    <a routerLink="/">Volver al inicio</a>
+  </header>
+
+  <h2>{{ editando ? 'Editar estudiante' : 'Registrar estudiante' }}</h2>
+
+  <form #formulario="ngForm" (ngSubmit)="guardarEstudiante()">
+    <label>Matrícula</label>
+    <input name="matricula" [(ngModel)]="estudiante.matricula"
+      required maxlength="30" [disabled]="editando"
+      placeholder="Código de matrícula">
+
+    <label>Nombre completo</label>
+    <input name="nombre" [(ngModel)]="estudiante.nombre"
+      required placeholder="Nombre del estudiante">
+
+    <label>Carrera</label>
+    <input name="carrera" [(ngModel)]="estudiante.carrera"
+      required placeholder="Carrera">
+
+    <label>Teléfono</label>
+    <input name="telefono" [(ngModel)]="estudiante.telefono"
+      required placeholder="Teléfono">
+
+    <button type="submit" [disabled]="formulario.invalid">
+      {{ editando ? 'Guardar cambios' : 'Registrar estudiante' }}
+    </button>
+
+    <button type="button" *ngIf="editando"
+      (click)="limpiarFormulario()">
+      Cancelar
+    </button>
+  </form>
+
+  <p *ngIf="mensaje">{{ mensaje }}</p>
+  <p *ngIf="error">{{ error }}</p>
+  <p *ngIf="cargando">Cargando estudiantes...</p>
+
+  <div class="tabla-contenedor" *ngIf="!cargando">
+    <table>
+      <thead>
+        <tr>
+          <th>Matrícula</th>
+          <th>Nombre</th>
+          <th>Carrera</th>
+          <th>Teléfono</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let estudiante of estudiantes">
+          <td>{{ estudiante.matricula }}</td>
+          <td>{{ estudiante.nombre }}</td>
+          <td>{{ estudiante.carrera }}</td>
+          <td>{{ estudiante.telefono }}</td>
+          <td>
+            <button type="button" (click)="prepararEdicion(estudiante)">
+              Editar
+            </button>
+            <button type="button"
+              (click)="eliminarEstudiante(estudiante.matricula)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="estudiantes.length === 0">
+          <td colspan="5">Todavía no hay estudiantes registrados.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

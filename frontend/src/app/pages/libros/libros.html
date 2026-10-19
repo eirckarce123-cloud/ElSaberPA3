@@ -1,0 +1,77 @@
+<div class="pagina">
+    <header class="encabezado">
+        <div>
+            <h1>📚 Gestión de Libros</h1>
+            <p>Biblioteca El Saber</p>
+        </div>
+        <a routerLink="/">Volver al inicio</a>
+    </header>
+
+    <h2>{{ editando ? 'Editar libro' : 'Registrar libro' }}</h2>
+
+    <form #formulario="ngForm" (ngSubmit)="guardarLibro()">
+        <label>Código</label>
+        <input name="codigo" [(ngModel)]="libro.codigo" required maxlength="30" placeholder="Ej. LIB-004">
+
+        <label>Título</label>
+        <input name="titulo" [(ngModel)]="libro.titulo" required placeholder="Título del libro">
+
+        <label>Autor</label>
+        <input name="autor" [(ngModel)]="libro.autor" required placeholder="Nombre del autor">
+
+        <label>Editorial</label>
+        <input name="editorial" [(ngModel)]="libro.editorial" required placeholder="Nombre de la editorial">
+
+        <label>Año de publicación</label>
+        <input type="number" name="anio" [(ngModel)]="libro.anio" required min="1000" [max]="2100">
+
+        <button type="submit" [disabled]="formulario.invalid">
+            {{ editando ? 'Guardar cambios' : 'Registrar libro' }}
+        </button>
+
+        <button type="button" *ngIf="editando" (click)="limpiarFormulario()">
+            Cancelar edición
+        </button>
+    </form>
+
+    <p *ngIf="mensaje">{{ mensaje }}</p>
+    <p *ngIf="error">{{ error }}</p>
+    <p *ngIf="cargando">Cargando libros...</p>
+
+    <div class="tabla-contenedor" *ngIf="!cargando">
+        <table>
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Editorial</th>
+                    <th>Año</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let libro of libros">
+                    <td>{{ libro.codigo }}</td>
+                    <td>{{ libro.titulo }}</td>
+                    <td>{{ libro.autor }}</td>
+                    <td>{{ libro.editorial }}</td>
+                    <td>{{ libro.anio }}</td>
+                    <td>
+                        <button type="button" (click)="prepararEdicion(libro)">
+                            Editar
+                        </button>
+                        <button type="button" (click)="eliminarLibro(libro.codigo)">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+
+                <tr *ngIf="libros.length === 0">
+                    <td colspan="6">Todavía no hay libros registrados.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

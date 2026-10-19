@@ -1,0 +1,81 @@
+
+<div class="pagina">
+  <header class="encabezado">
+    <div>
+      <h1>📂 Gestión de Categorías</h1>
+      <p>Biblioteca El Saber</p>
+    </div>
+    <a routerLink="/">Volver al inicio</a>
+  </header>
+
+  <h2>{{ editando ? 'Editar categoría' : 'Registrar categoría' }}</h2>
+
+  <form #formulario="ngForm" (ngSubmit)="guardarCategoria()">
+    <label>ID de categoría</label>
+    <input name="id_categoria"
+      [(ngModel)]="categoria.id_categoria"
+      required maxlength="30" [disabled]="editando"
+      placeholder="Ej. CAT-001">
+
+    <label>Nombre</label>
+    <input name="nombre" [(ngModel)]="categoria.nombre"
+      required placeholder="Nombre de la categoría">
+
+    <label>Sección</label>
+    <input name="seccion" [(ngModel)]="categoria.seccion"
+      required placeholder="Sección">
+
+    <label>Descripción</label>
+    <textarea name="descripcion"
+      [(ngModel)]="categoria.descripcion"
+      required placeholder="Describe la categoría"></textarea>
+
+    <button type="submit" [disabled]="formulario.invalid">
+      {{ editando ? 'Guardar cambios' : 'Registrar categoría' }}
+    </button>
+
+    <button type="button" *ngIf="editando"
+      (click)="limpiarFormulario()">
+      Cancelar
+    </button>
+  </form>
+
+  <p *ngIf="mensaje">{{ mensaje }}</p>
+  <p *ngIf="error">{{ error }}</p>
+  <p *ngIf="cargando">Cargando categorías...</p>
+
+  <div class="tabla-contenedor" *ngIf="!cargando">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Sección</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let categoria of categorias">
+          <td>{{ categoria.id_categoria }}</td>
+          <td>{{ categoria.nombre }}</td>
+          <td>{{ categoria.seccion }}</td>
+          <td>{{ categoria.descripcion }}</td>
+          <td>
+            <button type="button" (click)="prepararEdicion(categoria)">
+              Editar
+            </button>
+            <button type="button"
+              (click)="eliminarCategoria(categoria.id_categoria)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="categorias.length === 0">
+          <td colspan="5">Todavía no hay categorías registradas.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

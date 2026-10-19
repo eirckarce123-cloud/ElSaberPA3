@@ -1,0 +1,78 @@
+
+<div class="pagina">
+  <header class="encabezado">
+    <div>
+      <h1>🏢 Gestión de Editoriales</h1>
+      <p>Biblioteca El Saber</p>
+    </div>
+    <a routerLink="/">Volver al inicio</a>
+  </header>
+
+  <h2>{{ editando ? 'Editar editorial' : 'Registrar editorial' }}</h2>
+
+  <form #formulario="ngForm" (ngSubmit)="guardarEditorial()">
+    <label>RUC</label>
+    <input name="ruc" [(ngModel)]="editorial.ruc"
+      required maxlength="20" [disabled]="editando"
+      placeholder="RUC de la editorial">
+
+    <label>Nombre</label>
+    <input name="nombre" [(ngModel)]="editorial.nombre"
+      required placeholder="Nombre de la editorial">
+
+    <label>Teléfono</label>
+    <input name="telefono" [(ngModel)]="editorial.telefono"
+      required placeholder="Teléfono">
+
+    <label>Dirección</label>
+    <input name="direccion" [(ngModel)]="editorial.direccion"
+      required placeholder="Dirección">
+
+    <button type="submit" [disabled]="formulario.invalid">
+      {{ editando ? 'Guardar cambios' : 'Registrar editorial' }}
+    </button>
+
+    <button type="button" *ngIf="editando"
+      (click)="limpiarFormulario()">
+      Cancelar
+    </button>
+  </form>
+
+  <p *ngIf="mensaje">{{ mensaje }}</p>
+  <p *ngIf="error">{{ error }}</p>
+  <p *ngIf="cargando">Cargando editoriales...</p>
+
+  <div class="tabla-contenedor" *ngIf="!cargando">
+    <table>
+      <thead>
+        <tr>
+          <th>RUC</th>
+          <th>Nombre</th>
+          <th>Teléfono</th>
+          <th>Dirección</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let editorial of editoriales">
+          <td>{{ editorial.ruc }}</td>
+          <td>{{ editorial.nombre }}</td>
+          <td>{{ editorial.telefono }}</td>
+          <td>{{ editorial.direccion }}</td>
+          <td>
+            <button type="button" (click)="prepararEdicion(editorial)">
+              Editar
+            </button>
+            <button type="button" (click)="eliminarEditorial(editorial.ruc)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+
+        <tr *ngIf="editoriales.length === 0">
+          <td colspan="5">Todavía no hay editoriales registradas.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
