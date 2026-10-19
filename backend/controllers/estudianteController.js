@@ -1,5 +1,5 @@
 
-const Estudiante = require('../models/Estudiante');
+const Estudiante = require('../models/estudiante');
 
 const listarEstudiantes = async (req, res) => {
     try {

@@ -1,5 +1,5 @@
 
-const Libro = require('../models/Libro');
+const Libro = require('../models/libro');
 
 // Listar todos los libros
 const listarLibros = async (req, res) => {

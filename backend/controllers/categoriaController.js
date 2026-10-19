@@ -1,5 +1,5 @@
 
-const Categoria = require('../models/Categoria');
+const Categoria = require('../models/categoria');
 
 const listarCategorias = async (req, res) => {
     try {

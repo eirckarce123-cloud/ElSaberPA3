@@ -1,5 +1,5 @@
 
-const Editorial = require('../models/Editorial');
+const Editorial = require('../models/editorial');
 
 const listarEditoriales = async (req, res) => {
     try {
