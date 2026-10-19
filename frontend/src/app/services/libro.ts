@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class LibroService {
   private http = inject(HttpClient);
 
-  private apiUrl = 'http://localhost:3000/api/libros';
+ private apiUrl = 'https://elsaberpa3.onrender.com/api/libros';
 
   obtenerLibros(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);

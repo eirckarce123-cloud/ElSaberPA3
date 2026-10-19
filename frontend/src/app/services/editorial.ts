@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class EditorialService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:3000/api/editoriales';
+  private apiUrl = 'https://elsaberpa3.onrender.com/api/editoriales';
 
   obtenerEditoriales(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
